@@ -28,7 +28,20 @@ const DetalleClientexId = async (req, res) => {
   }
 }
 
+const ActualizaGpsCliente = async (req, res) => {
+  const { cpv, lat, long } = req.query
+
+  try {
+    const query = `UPDATE VEN_ClientePuntoVenta SET Latitud = ${lat}, Longitud = ${long} WHERE ClientePuntoVenta = ${cpv}`
+    await sql.query(query)
+    res.status(200).json({ message: 'Actualizado correctamente' })
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 module.exports = {
   RutaClientexUsuario,
-  DetalleClientexId
+  DetalleClientexId,
+  ActualizaGpsCliente
 }
